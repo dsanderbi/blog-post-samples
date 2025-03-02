@@ -1,0 +1,29 @@
+variables:
+  HOP_VERSION: "2.12.0"
+  OPENJDK_VERSION: "17"
+  IMAGE: "alpine:latest"
+
+stages:
+  - test
+
+create_markdown:
+  stage: test
+  image: ${IMAGE}
+  script:
+    - echo "Installing Apache HOP"
+    - apk add --no-cache openjdk${OPENJDK_VERSION} curl
+    - wget "https://downloads.apache.org/hop/${HOP_VERSION}/apache-hop-client-${HOP_VERSION}.zip"
+    - unzip apache-hop-client-${HOP_VERSION}.zip -d /opt/
+    - echo "Apache HOP installed successfully"
+    - echo "Setting executable permissions for shell scripts in the hop directory"
+    - chmod +x /opt/hop/*.sh
+    - chmod +x $CI_PROJECT_DIR/src/*.sh
+    - echo $CI_PROJECT_DIR
+    - echo $PRIVATE_TOKEN
+    - echo $CI_PROJECT_ID
+    - sh start.sh $CI_PROJECT_DIR $PRIVATE_TOKEN $CI_PROJECT_ID
+    - ls -la
+  artifacts:
+    paths:
+      - milestone.md 
+    expire_in: 1 week  
