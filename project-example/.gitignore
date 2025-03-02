@@ -1,0 +1,18 @@
+## Global
+# Ignore all directories named 'logs'
+**/logs/
+
+## project-example START ##
+# Ignore local settings
+project-example/config/dev/.kettle/.spoonrc
+project-example/config/dev/.kettle/db.cache*
+project-example/config/dev/.kettle/shared.xml.backup
+
+project-example/config/test/.kettle/.spoonrc
+project-example/config/test/.kettle/db.cache*
+project-example/config/test/.kettle/shared.xml.backup
+
+project-example/config/prod/.kettle/.spoonrc
+project-example/config/prod/.kettle/db.cache*
+project-example/config/prod/.kettle/shared.xml.backup
+## project-example END ##
